@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="燃起来" v-on:click="zmd">
+        <input type="button" value="歇歇吧">
+        <br>
+        <h4>{{msg}}</h4>
+    </div>
+</body>
+<!-- 引入vue代码 -->
+<script src="./lib/vue-2.6.10.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            msg: "你好，欢迎来到王者荣耀!!!!"
+        },
+        methods: {
+            zmd: function() {
+                // 设置定时器
+                setInterval(() => {
+                    // 获取字符串开始的字符
+                    var start = this.msg.substring(0, 1);
+                    // 获取除了第一个字符外的字符串
+                    var end   = this.msg.substring(1);
+                    // 拼接字符串
+                    this.msg =  end + start;
+                }, 400);
+            }
+        },
+    })
+</script>
+
+</html>

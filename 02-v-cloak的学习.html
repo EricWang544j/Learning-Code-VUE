@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
     <div id="app">
         <!--使用 v-cloak 能够解决 插值表达式闪烁的问题-->
@@ -19,16 +21,26 @@
         <div>{{ msg2 }}</div>
         <div v-text="msg2"></div>
         <div v-html="msg2"></div>
+
+        <hr>
+        <input type="button" value="点一下试试吧" v-on:click="aa">
+        
     </div>
 </body>
 <script src="lib/vue-2.6.10.js"></script>
 <script type="text/javascript">
     var vm = new Vue({
-        el : '#app',
-        data :{
-            msg : '真好',
-            msg2 : '<h2>今天可是真好</h2>'
-        }
+        el: '#app',
+        data: {
+            msg: '真好',
+            msg2: '<h2>今天可是真好</h2>'
+        },
+        methods: {
+            aa:function(){
+                alert('你好');
+            }
+        },
     })
 </script>
+
 </html>
