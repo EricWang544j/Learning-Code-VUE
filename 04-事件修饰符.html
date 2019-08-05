@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            width:1000px;
+            height: 200px;
+            background-color: bisque;
+            margin: 0px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- .stop 事件修饰 -->
+        <!-- 阻止冒泡，但是当前元素会有事件产生 -->
+        <div class="red" id="red" @click="divRedClick">
+            <input type="button" value="点击我" class="anniu" id="clickInput" @click.stop="btnClick">
+        </div>
+
+        <!-- .prevent 阻止默认事件 -->
+        <!-- 比方下面的链接，.prevemt 就会阻止事件的发生从而不会跳转 -->
+        <a href="www.baidu.com" @click.prevent="linkClick">去百度</a>
+
+        <!-- .captrue 添加事件侦听器使用事件捕获模式 -->
+        <div class="red" id="red" @click="divRedClick">
+            <input type="button" value="点击我" class="anniu" id="clickInput" @click.capture="btnClick">
+        </div>
+
+        <!-- .self 只在该元素上有效，子元素无效 -->
+        <div class="red" id="red" @click.self="divRedClick">
+            <input type="button" value="点击我" class="anniu" id="clickInput" @click="btnClick">
+        </div>
+
+        <!-- .once 只运行一次 -->
+        <div class="red" id="red" @click.once="divRedClick">
+            <input type="button" value="点击我" class="anniu" id="clickInput" @click="btnClick">
+        </div>
+    </div>
+</body>
+<script src="./lib/vue-2.6.10.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            
+        },
+        methods: {
+            divRedClick(){
+                console.log("Div Red Click");
+            },
+            btnClick(){
+                console.log("Div btn Click");
+            },
+            linkClick(){
+                console.log("点击了链接事件");
+            }
+        },
+    });
+</script>
+</html>

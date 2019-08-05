@@ -10,8 +10,8 @@
 
 <body>
     <div id="app">
-        <input type="button" value="燃起来" v-on:click="zmd">
-        <input type="button" value="歇歇吧">
+        <input type="button" value="燃起来" @click = "zmd">
+        <input type="button" value="歇歇吧" @click = "stop">
         <br>
         <h4>{{msg}}</h4>
     </div>
@@ -22,12 +22,16 @@
     var vm = new Vue({
         el: "#app",
         data: {
-            msg: "你好，欢迎来到王者荣耀!!!!"
+            msg: "你好，欢迎来到王者荣耀!!!!",
+            // 在data中定义定时器
+            intervalid : null,
         },
         methods: {
             zmd: function() {
+                // 判断走马灯运行逻辑是否正常
+                if(this.intervalid != null)return;
                 // 设置定时器
-                setInterval(() => {
+                this.intervalid = setInterval(() => {
                     // 获取字符串开始的字符
                     var start = this.msg.substring(0, 1);
                     // 获取除了第一个字符外的字符串
@@ -35,6 +39,12 @@
                     // 拼接字符串
                     this.msg =  end + start;
                 }, 400);
+            },
+            stop() {
+                // 清除定时器
+                clearInterval(this.intervalid); 
+                // 清除定时器后 将定时器设置为null
+                this.intervalid = null; 
             }
         },
     })
