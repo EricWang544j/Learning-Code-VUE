@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <ul v-for="item in items">
+        <li>{{ item.message }}</li>
+    </ul>
+</div>
+</body>
+<script src="./lib/vue-2.6.10.js"></script>
+<script>
+var vm = new Vue({
+    el: '#app',
+    data : {
+        items : [
+            { message : 'a1111111' },
+            { message : 'b2222222' },
+            { message : 'c3333333' },
+        ]
+    },
+    methods: {
+        
+    },
+});
+</script>
+</html>
