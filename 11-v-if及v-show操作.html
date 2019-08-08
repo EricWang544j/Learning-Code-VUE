@@ -10,9 +10,10 @@
 
 <body>
     <div id="app">
-        <ul v-for="(item, i) in items" key="item">
-            <li>{{ item.message }}-----{{i}}</li>
-        </ul>
+        <button @click="clickBtn">点击显示或者取消</button>
+        <hr>
+        <h3 v-if="flag">这个是受属性控制的内容</h3>
+        <h3 v-show="flag">这个是受v-show控制的内容</h3>
     </div>
 </body>
 <script src="./lib/vue-2.6.10.js"></script>
@@ -20,14 +21,12 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            items: [
-                { message: 'a1111111' },
-                { message: 'b2222222' },
-                { message: 'c3333333' },
-            ]
+            flag : true,
         },
         methods: {
-
+            clickBtn(){
+                this.flag = !this.flag;
+            }
         },
     });
 </script>
