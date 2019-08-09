@@ -3,23 +3,86 @@
 
 <head>
     <meta charset="utf-8">
-    <title>iview example</title>
+    <title>品牌界面</title>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
-    <table>
-        <tr>
-            <td>1111</td>
-            <td>1111</td>
-            <td>1111</td>
-            <td>1111</td>
-        </tr>
-    </table>
+    <div id="app">
+        <div class="container">
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">添加品牌</h3>
+                </div>
+                <div class="panel-body form-inline">
+                    <label for="inputID">
+                        ID:
+                        <input type="text" id="inputID" required v-model="inputID" class="form-control">
+                    </label>
+                    &nbsp;
+                    <label for="inputName">
+                        Name:
+                        <input type="text" id="inputName" required v-model="inputName" class="form-control">
+                    </label>
+                    &nbsp;
+                    <input type="button" value="添加" class="btn btn-primary" @click="add">
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="primary">
+                        <td>ID</td>
+                        <td>品牌</td>
+                        <td>时间</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in table1" :key="item.id">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.time }}</td>
+                        <td><a @click="del(item.id)">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
-<script src="./lib/vue-2.6.10.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script src="./bootstrap/js/bootstrap.min.js"></script>
+<script src="./lib/vue-2.6.10.js"></script>
 <script>
-
+    var vm = new Vue({
+        el : '#app',
+        data: {
+            inputID : '',
+            inputName : '',
+            table1 : [
+                { id: 1, name: '阿迪达斯', time: new Date() },
+                { id: 2, name: '古腾堡',   time: new Date() },
+                { id: 3, name: '海尔',     time: new Date() },
+            ]
+        },
+        methods: {
+            // 添加的方法
+            add(){
+                var car = { id: this.inputID, name: this.inputName, time: new Date() };
+                this.table1.push(car);
+                this.inputID = '';
+                this.inputName = '';
+            },
+            // 删除数据
+            del(id){
+                this.table1.some((item, i) => {
+                    if(item.id == id){
+                        this.table1.splice(i, 1);
+                        return true;
+                    }
+                });
+            }
+        },
+    });
 </script>
 </html>
