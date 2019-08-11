@@ -27,9 +27,10 @@
                     </label>
                     &nbsp;
                     <input type="button" value="添加" class="btn btn-primary" @click="add">
+                    &nbsp;
                     <label for="inputSearch">
                         搜索名称或关键字：
-                        <input type="text" name="" id="inputSearch" class="form-control" v-model="inputSearch">
+                        <input type="text" name="" id="inputSearch" class="form-control" v-model="keywords">
                     </label>
                 </div>
             </div>
@@ -43,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in table1" :key="item.id">
+                    <tr v-for="item in search(keywords)" :key="item.id">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.time }}</td>
@@ -63,7 +64,7 @@
         data: {
             inputID : '',
             inputName : '',
-            inputSearch : '',
+            keywords : '',
             table1 : [
                 { id: 1, name: '阿迪达斯', time: new Date() },
                 { id: 2, name: '古腾堡',   time: new Date() },
@@ -86,6 +87,25 @@
                         return true;
                     }
                 });
+            },
+            // 查询数值
+            /**
+             * 解题思路
+             * 1、首先定义及获取到搜索关键词
+             * 2、第二步就是将原数组获取到 ，自己创建一个数组进行过滤接收数组内容
+             * 3、第三步就是将原数组进行与关键词进行匹配也就是 ' item.name.indexOf(keywords) '
+             * 4、最后就是将数组堆栈为新的数组进行返回至前台显示
+             * 
+             * vm主要是做了对数组进行过滤的操作，在渲染的时候就定义好  类似在页面加载过程中就做了对页面内容的审核
+             */
+            search(keywords){
+                var newList = [];
+                this.table1.filter(item => {
+                    if(item.name.indexOf(keywords) != -1){
+                        newList.push(item);
+                    }
+                });
+                return newList;
             }
         },
     });
