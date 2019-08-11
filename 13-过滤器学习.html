@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>品牌界面</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">添加品牌</h3>
+                </div>
+                <div class="panel-body form-inline">
+                    <label for="inputID">
+                        ID:
+                        <input type="text" id="inputID" required v-model="inputID" class="form-control">
+                    </label>
+                    &nbsp;
+                    <label for="inputName">
+                        Name:
+                        <input type="text" id="inputName" required v-model="inputName" class="form-control">
+                    </label>
+                    &nbsp;
+                    <input type="button" value="添加" class="btn btn-primary" @click="add">
+                    &nbsp;
+                    <label for="inputSearch">
+                        搜索名称或关键字：
+                        <input type="text" name="" id="inputSearch" class="form-control" v-model="keywords">
+                    </label>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="primary">
+                        <td>ID</td>
+                        <td>品牌</td>
+                        <td>时间</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in search(keywords)" :key="item.id">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.time }}</td>
+                        <td><a @click="del(item.id)">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<script src="./lib/vue-2.6.10.js"></script>
+<script>
+    // 过滤器的名称
+    // {{ name | 过滤器的名称 }}
+    Vue.filter('过滤器名称', function (data) {
+        return data + '123';
+    });
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            inputID: '',
+            inputName: '',
+            keywords: '',
+            table1: [
+                { id: 1, name: '阿迪达斯', time: new Date() },
+                { id: 2, name: '古腾堡', time: new Date() },
+                { id: 3, name: '海尔', time: new Date() },
+            ]
+        },
+        methods: {
+            // 添加的方法
+            add() {
+                var car = { id: this.inputID, name: this.inputName, time: new Date() };
+                this.table1.push(car);
+                this.inputID = '';
+                this.inputName = '';
+            },
+            // 删除数据
+            del(id) {
+                this.table1.some((item, i) => {
+                    if (item.id == id) {
+                        this.table1.splice(i, 1);
+                        return true;
+                    }
+                });
+            },
+            // 查询数值
+            /**
+             * 解题思路
+             * 1、首先定义及获取到搜索关键词
+             * 2、第二步就是将原数组获取到 ，自己创建一个数组进行过滤接收数组内容
+             * 3、第三步就是将原数组进行与关键词进行匹配也就是 ' item.name.indexOf(keywords) '
+             * 4、最后就是将数组堆栈为新的数组进行返回至前台显示
+             * 
+             * vm主要是做了对数组进行过滤的操作，在渲染的时候就定义好  类似在页面加载过程中就做了对页面内容的审核
+             */
+            search(keywords) {
+                var newList = [];
+                this.table1.filter(item => {
+                    if (item.name.indexOf(keywords) != -1) {
+                        newList.push(item);
+                    }
+                });
+                return newList;
+            }
+        },
+    });
+    
+</script>
+
+</html>

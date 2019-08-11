@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的基本使用</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{ msg | msgFormat('传的值') }}</p>
+    </div>
+</body>
+<script src="./lib/vue-2.6.10.js"></script>
+<script>
+    //定义一个全局过滤器
+    Vue.filter('msgFormat', function(msg, data){
+        // 字符串的方法 第一个方法除了写支付环外还可以使用正则表达式
+        return msg.replace(/孩子/g, data);
+    });
+
+    var vm = new Vue({
+        el:'#app',
+        data : {
+            'msg' : '曾经我也是最好的孩子,谁是孩子',
+        },
+        methods : {
+
+        },
+    });
+</script>
+</html>
