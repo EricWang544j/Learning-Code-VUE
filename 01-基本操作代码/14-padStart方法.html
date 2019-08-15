@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>基本代码</title>
+    <!-- 导入Vue包 -->
+    <script src="../lib/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ time | TimeF(time) }} ~~~</p>
+    </div>
+</body>
+<script type="text/javascript">
+    // 2、创建一个Vue的实例
+    // 当我们导入包止呕，在浏览器的内存中，就多了一个 Vue 构造函数
+    var mv = new Vue({
+        // 我们 new 的这个 Vue 实例中要控制页面上的哪个区域
+        el: '#app',
+        data: {
+            // data 属性中，存放的是 el 中要得到的数据
+            time: new Date(),
+            // 通过 Vue 提供的指令，很方便的就可以包数据渲染到页面上，程序猿不用在手动操作Dom元素了【前端的Vue框架，不提倡直接手动操作Dom元素】
+        },
+        filters: {
+            TimeF : function(data){
+                var dt = new Date(data);
+                var Y = dt.getFullYear().toString();
+                var M = dt.getMonth().toString().padStart(2, '0');
+                var D = dt.getDate().toString().padStart(2, '0');
+
+                return Y+'-'+M+'-'+D;
+            }
+        },
+    })
+</script>
+
+</html>

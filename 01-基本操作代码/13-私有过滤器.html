@@ -23,10 +23,10 @@
                     &nbsp;
                     <label for="inputName">
                         Name:
-                        <input type="text" id="inputName" required v-model="inputName" class="form-control">
+                        <input type="text" id="inputName" required v-model="inputName" class="form-control" @keyup.112="add">
                     </label>
                     &nbsp;
-                    <input type="button" value="添加" class="btn btn-primary" @click="add">
+                    <input type="button" value="添加" class="btn btn-primary" @click="add" >
                     &nbsp;
                     <label for="inputSearch">
                         搜索名称或关键字：
