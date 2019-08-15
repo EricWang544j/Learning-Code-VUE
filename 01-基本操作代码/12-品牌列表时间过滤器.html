@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>品牌界面</title>
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -47,7 +47,7 @@
                     <tr v-for="item in search(keywords)" :key="item.id">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.time }}</td>
+                        <td>{{ item.time | timeZH(item.time) }}</td>
                         <td><a @click="del(item.id)">删除</a></td>
                     </tr>
                 </tbody>
@@ -56,33 +56,43 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<script src="./bootstrap/js/bootstrap.min.js"></script>
-<script src="./lib/vue-2.6.10.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../lib/vue-2.6.10.js"></script>
 <script>
+    //定义时间转换过滤器
+    Vue.filter('timeZH', function(datestr){
+        var dt = new Date(datestr)
+        var y = dt.getFullYear();
+        var m = dt.getMonth() + 1;
+        var d = dt.getDate();
+
+        return `${y}-${m}-${d}`;
+    });
+
     var vm = new Vue({
-        el : '#app',
+        el: '#app',
         data: {
-            inputID : '',
-            inputName : '',
-            keywords : '',
-            table1 : [
+            inputID: '',
+            inputName: '',
+            keywords: '',
+            table1: [
                 { id: 1, name: '阿迪达斯', time: new Date() },
-                { id: 2, name: '古腾堡',   time: new Date() },
-                { id: 3, name: '海尔',     time: new Date() },
+                { id: 2, name: '古腾堡', time: new Date() },
+                { id: 3, name: '海尔', time: new Date() },
             ]
         },
         methods: {
             // 添加的方法
-            add(){
+            add() {
                 var car = { id: this.inputID, name: this.inputName, time: new Date() };
                 this.table1.push(car);
                 this.inputID = '';
                 this.inputName = '';
             },
             // 删除数据
-            del(id){
+            del(id) {
                 this.table1.some((item, i) => {
-                    if(item.id == id){
+                    if (item.id == id) {
                         this.table1.splice(i, 1);
                         return true;
                     }
@@ -98,10 +108,10 @@
              * 
              * vm主要是做了对数组进行过滤的操作，在渲染的时候就定义好  类似在页面加载过程中就做了对页面内容的审核
              */
-            search(keywords){
+            search(keywords) {
                 var newList = [];
                 this.table1.filter(item => {
-                    if(item.name.indexOf(keywords) != -1){
+                    if (item.name.indexOf(keywords) != -1) {
                         newList.push(item);
                     }
                 });
@@ -110,4 +120,5 @@
         },
     });
 </script>
+
 </html>

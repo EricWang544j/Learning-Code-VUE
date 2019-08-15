@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>品牌界面</title>
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -47,7 +47,7 @@
                     <tr v-for="item in search(keywords)" :key="item.id">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.time | timeZH(item.time) }}</td>
+                        <td>{{ item.time }}</td>
                         <td><a @click="del(item.id)">删除</a></td>
                     </tr>
                 </tbody>
@@ -56,18 +56,15 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<script src="./bootstrap/js/bootstrap.min.js"></script>
-<script src="./lib/vue-2.6.10.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../lib/vue-2.6.10.js"></script>
 <script>
-    //定义时间转换过滤器
-    Vue.filter('timeZH', function(datestr){
-        var dt = new Date(datestr)
-        var y = dt.getFullYear();
-        var m = dt.getMonth() + 1;
-        var d = dt.getDate();
-
-        return `${y}-${m}-${d}`;
+    // 过滤器的名称
+    // {{ name | 过滤器的名称 }}
+    Vue.filter('过滤器名称', function (data) {
+        return data + '123';
     });
+
 
     var vm = new Vue({
         el: '#app',
@@ -119,6 +116,7 @@
             }
         },
     });
+    
 </script>
 
 </html>
