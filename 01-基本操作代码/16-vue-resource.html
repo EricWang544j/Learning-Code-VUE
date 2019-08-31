@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue resource</title>
+    <!-- 先引用vue -->
+    <script src="../lib/vue-2.6.10.js"></script>
+    <!-- 之后引用vue-resource进行操作 -->
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="Get请求" @click="getInfo">
+        <br>
+        <input type="button" value="POST请求" @click="postInfo">
+        <br>
+        <input type="button" value="jsonp请求" @click="jsonpInfo">
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            msg : '你好，世界',
+        },
+        methods:{
+            // get请求
+            getInfo(){
+                this.$http.get('requestUrl').then(
+                    function(){
+                        console.log(this.msg);
+                    },
+                    errorInfo
+                );
+            },
+
+            // post请求
+            postInfo(){
+                this.$http.post('requestUrl', {data}, { emulateJSON: true }).then(
+                    successInfo,
+                    errorInfo
+                );
+            },
+
+            // jsonp请求
+            jsonpInfo(){
+                 this.$http.jsonp(url, {
+                    params: {
+                        wd: keyword
+                    },
+                    jsonp: 'cb'//jsonp默认是callback,百度缩写成了cb，所以需要指定下                     }
+                }).then(res => {
+                    if (res.data.g) {
+                        this.result = res.data.g.map(x => x['q']);
+                    } else {
+                        this.result = [];
+                    }
+                });
+            }
+
+        }
+    })
+</script>
+</html>
